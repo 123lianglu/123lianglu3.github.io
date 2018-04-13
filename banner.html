@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="function.js"></script>
+	<script src="animate.js"></script>
+	<script>
+     window.onload=function(){
+     	var  container=$('.container')[0];
+     	var bannerbox=$(".bannerbox")[0];
+     	var boxbtn=$(".boxbtn")[0];
+     	var imgs=$("img",bannerbox);
+     	var btns=$("div",boxbtn);
+     	var lefta=$(".leftbtn")[0];
+     	var righta=$('.rightbtn')[0];
+     	var width=getStyle(bannerbox,"width");
+     	imgs[0].style.zIndex=1;
+     	var num=0;//当前的下标
+     	var z=5;
+     	var now=0;
+     	var t=setInterval(move,1000);
+     	function move(){
+     		num++;
+     		if(num==imgs.length){
+     			num=0;
+     		}
+     		imgs[num].style.left=width+"px";
+     		//alert(imgs[num].style.left)
+     		animate(ims[num])
+     	}
+
+     }
+	</script>
+	<style>
+    .container{
+    	width:730px;
+    	height: 454px;
+    	margin:0 auto; 
+    	position: relative;
+    	overflow: hidden;
+    }
+    .bannerbox{
+    	width:730px;
+    	height: 454px;
+    	position: absolute;
+    	left:0;
+    	top:0;
+
+    }
+    .bannerbox a{
+    	display: block;
+    	width: 730px;
+        height: 454px;
+        position: absolute;
+        left:0;
+        top:0;
+    }
+    .boxbtn{
+     width: 300px;
+     height: 30px;
+     position: absolute;
+     left:0;
+     right:0;
+     margin:auto;
+     bottom:20px;
+     z-index: 222;
+    }
+    .boxbtn div{
+    	width: 30px;
+    	height: 30px;
+    	border-radius: 50%;
+    	background: #ddd;
+    	line-height: 30px;
+    	text-align: center;
+    	font-size: 12px;
+    	float: left;
+    	margin-right: 20px;
+    	cursor: pointer;
+    }
+    .arrow{
+    	width: 30px;
+    	height: 60px;
+    	line-height: 60px;
+    	position: absolute;
+    	top:0;
+    	bottom:0;
+    	margin:auto;
+    	background: #000;
+    	opacity: 0.5;
+    	text-align: center;
+    	font-size: 30px;
+    	z-index: 222;
+    	color:#fff;
+    	cursor: pointer;
+    	display: none;
+
+
+    }
+    .leftbtn{
+    	left:0;
+    }
+    .rightbtn{
+    	right:0;
+    }
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="bannerbox">
+			<a href="#"><img src="image/1.jpg" alt=""></a>
+			<a href="#"><img src="image/2.jpg" alt=""></a>
+			<a href="#"><img src="image/3.jpg" alt=""></a>
+			<a href="#"><img src="image/4.jpg" alt=""></a>
+			<a href="#"><img src="image/5.jpg" alt=""></a>
+		</div>
+		<div class="boxbtn">
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>4</div>
+			<div>5</div>
+		</div>
+		<div class="arrow leftbtn">&lt;</div>
+		<div class="arrow rightbtn">&gt;</div>
+	</div>
+</body>
+</html>

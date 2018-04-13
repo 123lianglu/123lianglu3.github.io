@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+       .container{
+     	width: 730px;
+     	height: 454px;
+     	position: relative;
+     	margin:0 auto;
+     	overflow: hidden;
+     }
+     .bannerbox{
+     	width: 730px;
+     	height: 454px;
+     	position: absolute;
+     	left:0;top:0;
+     }
+     .bannerbox a{
+     	width: 730px;
+     	height: 454px;
+     	display: block;
+     	position: absolute;
+     	left:0;top:0;
+     }
+     .btnbox{
+     	 width: 300px;
+     	 height: 30px;
+     	 position: absolute;
+     	 left:0;
+     	 right:0;
+     	 margin:auto;
+     	 bottom: 20px;
+     	 z-index: 222;	 
+     }
+     .btnbox div{
+     	width: 30px;
+     	height: 30px;
+     	line-height: 30px;
+     	text-align: center;
+     	font-size: 14px;
+     	background: #ccc;
+     	border-radius: 50%;
+     	border: 1px solid #ccc;
+     	float: left;
+     	margin-right: 28px;
+     	cursor: pointer;
+
+     }
+     .arrow{
+     	width: 30px;
+     	height: 60px;
+     	background: #000;
+     	opacity: 0.5;
+     	filter:alpha(opacity=50);
+     	z-index: 999;
+     	position: absolute;
+     	top:200px;
+     	line-height: 60px;
+     	text-align: center;
+     	font-size: 24px;
+     	color:#fff;
+     	cursor: pointer;
+
+
+     }
+     .arrow:hover{
+     	background: #000;
+     	opacity: 1;
+     }
+     .left{
+     	left: 0px;
+     }
+      .right{
+     	right: 0px;
+     }
+	</style>
+	<script src="function.js"></script>
+	<script src="animate.js"></script>
+	<script>
+    window.onload=function(){
+    var container=getClass('container')[0];
+    var bannerbox=getClass('bannerbox')[0];
+    var btnbox=getClass('btnbox')[0];
+    var imgs=bannerbox.getElementsByTagName('a');
+    var btns=btnbox.getElementsByTagName('div');
+    var lefta=document.getElementsByClassName('left')[0];
+    var righta=document.getElementsByClassName('right')[0];
+    var width=getStyle(bannerbox,"width");
+    //对第一个元素进行初始化和变量声明
+    imgs[0].style.zIndex=1;
+    var num=0; //当前下标
+    var z=5;
+    var now=0;//已经执行过的值
+    var t=setInterval(move,3000);
+    //时间函数
+    function move(){
+    	num++;
+    	if(num==imgs.length){
+    		num=0;
+    	}
+   	    imgs[num].style.left=width+"px";
+    	animate(imgs[now],{left:-width});
+
+    	imgs[num].style.zIndex=z++;
+    	animate(imgs[num],{left:0});//要显示的图片层级调高
+
+    	btns[now].style.background="#ccc";
+    	btns[num].style.background="#fff";
+    	now=num;
+
+    }
+    for(var i=0;i<btns.length;i++){
+    	btns[i].index=i;
+    	btns[i].onmouseover=function(){
+    		if(now<this.index){
+    			imgs[this.index].style.left=width+"px";
+    			imgs[this.index].style.zIndex=z++;
+    			animate(imgs[now],{left:-width})
+    		}else if(now>this.index){
+    			imgs[this.index].style.left=-width+"px";
+    			imgs[this.index].style.zIndex=z++;
+    			animate(imgs[now],{left:width})
+    		}
+    		animate(imgs[this.index],{left:0});
+    		btns[now].style.background="#ccc";
+    		this.style.background="#fff";
+    		now=this.index;
+    	    num=this.index;
+    	}
+    }
+    righta.onclick=function(){
+     move()
+    }
+    lefta.onclick=function(){
+    	num--;
+    	if(num==-1){
+    		num=imgs.length-1;
+    	}
+    	imgs[num].style.left=-width+"px";
+    	animate(imgs[now],{left:width});
+    	imgs[num].style.zIndex=z++;
+    	animate(imgs[num],{left:0});
+    	btns[num].style.background="#fff";
+    	btns[now].style.background="#ccc";
+    	now=num;
+    } 
+     container.onmouseover=function(){
+     	clearInterval(t)
+     }
+     container.onmouseout=function(){
+     	t=setInterval(move,3000)
+     }
+
+
+    }
+	</script>
+
+</head>
+<body>
+		<div class="container">
+		<div class="bannerbox">
+			<a href=""><img src="image/1.jpg" alt=""></a>
+			<a href=""><img src="image/2.jpg" alt=""></a>
+			<a href=""><img src="image/3.jpg" alt=""></a>
+			<a href=""><img src="image/4.jpg" alt=""></a>
+			<a href=""><img src="image/5.jpg" alt=""></a>
+		</div>
+		<div class="btnbox">
+			<div style="background:#fff">1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>4</div>
+			<div>5</div>
+		</div>
+		
+			<div class="left arrow">&lt;</div>
+			<div class="right arrow">&gt;</div>
+		
+	</div>
+</body>
+</html>
